@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+
+</head>
+<body>
+    <script name="pageScript" language="Javascript" type="text/javascript" src="/static/mainPage.js"></script>
+    <ol name="users">
+        %user_counter = 0
+        %for user in users:
+        <li name="user">
+            %user_counter += 1
+            <p>Name:
+                <input name="userName" value="{{ user.get_name() }}">
+                <input type="submit" name="changeUserName" onclick="setUserName({{ user_counter }}, this.parentNode.childNodes['userName'].value);">
+            </p>
+            Emails:
+            <ul name="emails">
+                %for email in user.get_emails():
+                <li>
+                    <p>
+                        {{ email }}
+                        <button onclick="deleteEmail({{ user_counter }}, '{{ email }}');">Delete email</button>
+                    </p>
+
+                </li>
+                %end
+
+                <li>
+                    <p>
+                        <input name="newEmail" type="text" value="email@example.com">
+                        <input type="submit" value = "Add email" onclick="addEmail({{ user_counter }}, this.parentNode.childNodes['newEmail'].value);">
+                    </p>
+                </li>
+            </ul>
+            <button name="deleteUserButton" onclick="deleteUser({{ user_counter }});">Delete user</button>
+
+        </li>
+        %end
+        <li name="newUserForm">
+            <p>
+                <input name="newUser" type="text" value="name">
+                <input name="newEmail" type="text" value="email@example.com">
+                <input name="submit" type="submit" value = "Add user" onclick="addUser(this.parentNode.childNodes['newUser'].value, this.parentNode.childNodes['newEmail'].value);">
+            </p>
+        </li>
+    </ol>
+
+
+
+</body>
+</html>
